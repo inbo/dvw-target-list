@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Damiano Oldoni" />
+
+<meta name="date" content="2023-02-14" />
+
+<title>Darwin Core mapping</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">vww-target-list</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="dwc_mapping.html">Darwin Core mapping</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/inbo/vww-target-list">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Darwin Core mapping</h1>
+<h3 class="subtitle">For: De Vlaamse Waterweg target species list</h3>
+<h4 class="author">Damiano Oldoni</h4>
+<h4 class="date">2023-02-14</h4>
+
+</div>
+
+
+<!-- For examples, see https://github.com/trias-project/checklist-recipe/wiki/Examples -->
+<div id="setup" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Setup</h1>
+<p>Install required libraries (only if the libraries have not been
+installed before):</p>
+<pre class="r"><code>installed &lt;- rownames(installed.packages())
+required &lt;- c( &quot;readr&quot;, &quot;dplyr&quot;, &quot;magrittr&quot;, &quot;here&quot;, &quot;rgbif&quot;, &quot;digest&quot;)
+if (!all(required %in% installed)) {
+  install.packages(required[!required %in% installed])
+}</code></pre>
+<p>Load libraries:</p>
+<pre class="r"><code>library(readr)          # To work with text files
+library(dplyr)          # To manipulate tabular data
+library(magrittr)       # To use %&lt;&gt;% pipes
+library(here)           # To find files
+library(rgbif)          # To use GBIF services
+library(digest)         # To generate hashes</code></pre>
+</div>
+<div id="read-source-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Read source data</h1>
+<p>Create a data frame <code>input_data</code> from the source data:</p>
+<pre class="r"><code>input_data &lt;- readr::read_csv(file = here(&quot;data&quot;, &quot;raw&quot;, &quot;input_taxa.csv&quot;)) </code></pre>
+<pre><code>## Rows: 71 Columns: 1
+## ── Column specification ──────
+## Delimiter: &quot;,&quot;
+## chr (1): scientific_name
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Preview data:</p>
+<pre class="r"><code>input_data %&gt;% head(n = 5)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Acer negundo"},{"1":"Ailanthus altissima"},{"1":"Alternanthera philoxeroides"},{"1":"Amorpha fruticosa"},{"1":"Aponogeton distachyos"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="process-source-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Process source
+data</h1>
+<div id="scientific-names" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Scientific names</h2>
+<p>Use the <a href="https://www.gbif.org/tools/name-parser">GBIF
+nameparser</a> to retrieve nomenclatural information for the scientific
+names in the checklist:</p>
+<pre class="r"><code>parsed_names &lt;- input_data %&gt;%
+  distinct(scientific_name) %&gt;%
+  pull() %&gt;%
+  rgbif::parsenames() # An rgbif function</code></pre>
+<p>Show scientific names with nomenclatural issues, i.e. not of
+<code>type = SCIENTIFIC</code> or that could not be fully parsed. Note:
+these are not necessarily incorrect.</p>
+<pre class="r"><code>parsed_names %&gt;%
+  select(scientificname, type, parsed, parsedpartially, rankmarker) %&gt;%
+  filter(!(type == &quot;SCIENTIFIC&quot; &amp; parsed == &quot;TRUE&quot; &amp; parsedpartially == &quot;FALSE&quot;))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientificname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["parsed"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["parsedpartially"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["rankmarker"],"name":[5],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="taxon-ranks" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Taxon ranks</h2>
+<p>The nameparser function also provides information about the rank of
+the taxon (in <code>rankmarker</code>). Here we join this information
+with our checklist. Cleaning these ranks will done in the Taxon Core
+mapping:</p>
+<pre class="r"><code>input_data %&lt;&gt;% left_join(
+  parsed_names %&gt;%
+  select(scientificname, rankmarker),
+  by = c(&quot;scientific_name&quot; = &quot;scientificname&quot;))</code></pre>
+</div>
+<div id="taxon-ids" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Taxon IDs</h2>
+<p>To link taxa with information in the extension(s), each taxon needs a
+unique and relatively stable <code>taxonID</code>. Here we create one in
+the form of <code>dataset_shortname:taxon:hash</code>, where
+<code>hash</code> is unique code based on scientific name and kingdom
+(that will remain the same as long as scientific name and kingdom remain
+the same):</p>
+<pre class="r"><code>vdigest &lt;- Vectorize(digest) # Vectorize digest function to work with vectors
+input_data %&lt;&gt;% mutate(taxon_id = paste(
+  &quot;dvw-target-list&quot;,
+  &quot;taxon&quot;,
+  vdigest(paste(scientific_name, &quot;Plantae&quot;), algo = &quot;md5&quot;),
+  sep = &quot;:&quot;
+))</code></pre>
+</div>
+</div>
+<div id="taxon-core" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Taxon core</h1>
+<p>We start by creating a copy of the input data:</p>
+<pre class="r"><code>taxon &lt;- input_data</code></pre>
+<div id="term-mapping" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Term mapping</h2>
+<p>Map the data to <a
+href="http://rs.gbif.org/core/dwc_taxon_2015-04-24.xml">Darwin Core
+Taxon</a>.</p>
+<p>Start with record-level terms which contain metadata about the
+dataset (which is generally the same for all records).</p>
+<div id="language" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> language</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_language = &quot;en&quot;)</code></pre>
+</div>
+<div id="license" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> license</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_license = &quot;http://creativecommons.org/publicdomain/zero/1.0/&quot;)</code></pre>
+</div>
+<div id="rightsholder" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> rightsHolder</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_rightsHolder = &quot;INBO&quot;) # e.g. &quot;INBO&quot;</code></pre>
+</div>
+<div id="datasetid" class="section level3" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> datasetID</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetID = &quot;&quot;) # to be added after first publication </code></pre>
+</div>
+<div id="institutioncode" class="section level3" number="4.1.5">
+<h3><span class="header-section-number">4.1.5</span>
+institutionCode</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_institutionCode = &quot;INBO&quot;)</code></pre>
+</div>
+<div id="datasetname" class="section level3" number="4.1.6">
+<h3><span class="header-section-number">4.1.6</span> datasetName</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetName = &quot;De Vlaamse Waterweg target species list&quot;)</code></pre>
+<p>The following terms contain information about the taxon:</p>
+</div>
+<div id="taxonid" class="section level3" number="4.1.7">
+<h3><span class="header-section-number">4.1.7</span> taxonID</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonID = taxon_id)</code></pre>
+</div>
+<div id="scientificname" class="section level3" number="4.1.8">
+<h3><span class="header-section-number">4.1.8</span> scientificName</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_scientificName = scientific_name)</code></pre>
+</div>
+<div id="kingdom" class="section level3" number="4.1.9">
+<h3><span class="header-section-number">4.1.9</span> kingdom</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_kingdom = &quot;Plantae&quot;)</code></pre>
+</div>
+<div id="taxonrank" class="section level3" number="4.1.10">
+<h3><span class="header-section-number">4.1.10</span> taxonRank</h3>
+<p>Inspect values:</p>
+<pre class="r"><code>taxon %&gt;%
+  group_by(rankmarker) %&gt;%
+  count()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rankmarker"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"sp.","2":"71"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Map values by recoding to the <a
+href="http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml">GBIF rank
+vocabulary</a>:</p>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonRank = dplyr::case_match(rankmarker,
+  &quot;species&quot; ~ &quot;sp.&quot;
+))</code></pre>
+<p>Inspect mapped values:</p>
+<pre class="r"><code>taxon %&gt;%
+  group_by(rankmarker, dwc_taxonRank) %&gt;%
+  count()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rankmarker"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dwc_taxonRank"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"sp.","2":"NA","3":"71"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="post-processing" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Post-processing</h2>
+<p>Only keep the Darwin Core columns:</p>
+<pre class="r"><code>taxon %&lt;&gt;% select(starts_with(&quot;dwc_&quot;))</code></pre>
+<p>Drop the <code>dwc_</code> prefix:</p>
+<pre class="r"><code>colnames(taxon) &lt;- gsub(
+  x = colnames(taxon), 
+  pattern = &quot;dwc_&quot;, 
+  replacement = &quot;&quot;
+)</code></pre>
+<p>Preview data:</p>
+<pre class="r"><code>taxon %&gt;% head()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:c1e3310dd6e9347074dd45036ea8c13b","8":"Acer negundo","9":"Plantae","10":"NA"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:398c5be8a6ca5674689a0da9fa30aae9","8":"Ailanthus altissima","9":"Plantae","10":"NA"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:ecf7963930c7b0de63b82585a81595f7","8":"Alternanthera philoxeroides","9":"Plantae","10":"NA"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:5b6bd686098a3eac76fb5830973a13ee","8":"Amorpha fruticosa","9":"Plantae","10":"NA"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:daa459bc1f06497b4c7204e046b13c01","8":"Aponogeton distachyos","9":"Plantae","10":"NA"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:f7fd34119e83ce2387502f4fde63a060","8":"Arundo donax","9":"Plantae","10":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Save to CSV:</p>
+<pre class="r"><code>write_csv(taxon, here(&quot;data&quot;, &quot;processed&quot;, &quot;taxon.csv&quot;), na = &quot;&quot;)</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
