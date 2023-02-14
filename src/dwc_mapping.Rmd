@@ -186,7 +186,7 @@ Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabula
 
 ```{r}
 taxon %<>% mutate(dwc_taxonRank = dplyr::case_match(rankmarker,
-  "species" ~ "sp."
+  "sp." ~ "species"
 ))
 ```
 
