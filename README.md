@@ -10,8 +10,8 @@ This repository contains the functionality to standardize the data of the target
 
 ## Published dataset
 
-* [Dataset on the IPT]()
-* [Dataset on GBIF]()
+* [Dataset on the IPT]() (to be done)
+* [Dataset on GBIF]() (to be done)
 
 ## Repo structure
 
