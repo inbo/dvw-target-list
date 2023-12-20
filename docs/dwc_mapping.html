@@ -11,7 +11,7 @@
 
 <meta name="author" content="Damiano Oldoni" />
 
-<meta name="date" content="2023-11-14" />
+<meta name="date" content="2023-12-20" />
 
 <title>Darwin Core mapping</title>
 
@@ -347,7 +347,7 @@ div.tocify {
 <h1 class="title toc-ignore">Darwin Core mapping</h1>
 <h3 class="subtitle">For: De Vlaamse Waterweg target species list</h3>
 <h4 class="author">Damiano Oldoni</h4>
-<h4 class="date">2023-11-14</h4>
+<h4 class="date">2023-12-20</h4>
 
 </div>
 
@@ -375,7 +375,7 @@ library(digest)         # To generate hashes</code></pre>
 <p>Create a data frame <code>input_data</code> from the source data:</p>
 <pre class="r"><code>input_data &lt;- readr::read_csv(file = here(&quot;data&quot;, &quot;raw&quot;, &quot;input_taxa.csv&quot;)) </code></pre>
 <pre><code>## Rows: 60 Columns: 1
-## ── Column specification ─────────────
+## ── Column specification ──────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): scientific_name
 ## 
@@ -466,7 +466,7 @@ dataset (which is generally the same for all records).</p>
 </div>
 <div id="datasetid" class="section level3" number="4.1.4">
 <h3><span class="header-section-number">4.1.4</span> datasetID</h3>
-<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetID = &quot;&quot;) # to be added after first publication </code></pre>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetID = &quot;https://doi.org/10.15468/52b8h9&quot;) # added after first publication </code></pre>
 </div>
 <div id="institutioncode" class="section level3" number="4.1.5">
 <h3><span class="header-section-number">4.1.5</span>
@@ -532,7 +532,7 @@ vocabulary</a>:</p>
 <pre class="r"><code>taxon %&gt;% head()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:144da6d1e1e34060d579cf7981872a92","8":"Acer negundo L.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:dc1a9c7d8ecbea2c17659b65aac590ef","8":"Ailanthus altissima (Mill.) Swingle","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:b7674f5e6e0f6beed1f1360ed992f885","8":"Alternanthera philoxeroides (Mart.) Griseb.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:cc2e5618d0bd66a8847d37ad2ca30567","8":"Aponogeton distachyos L.f.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:e1997f351363626fcab7e94e3a4be505","8":"Arundo donax L.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:a75a5b3dd389493da0a2d178ed1d304c","8":"Asclepias syriaca L.","9":"Plantae","10":"species"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:144da6d1e1e34060d579cf7981872a92","8":"Acer negundo L.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:dc1a9c7d8ecbea2c17659b65aac590ef","8":"Ailanthus altissima (Mill.) Swingle","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:b7674f5e6e0f6beed1f1360ed992f885","8":"Alternanthera philoxeroides (Mart.) Griseb.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:cc2e5618d0bd66a8847d37ad2ca30567","8":"Aponogeton distachyos L.f.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:e1997f351363626fcab7e94e3a4be505","8":"Arundo donax L.","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"https://doi.org/10.15468/52b8h9","5":"INBO","6":"De Vlaamse Waterweg target species list","7":"dvw-target-list:taxon:a75a5b3dd389493da0a2d178ed1d304c","8":"Asclepias syriaca L.","9":"Plantae","10":"species"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Save to CSV:</p>
