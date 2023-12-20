@@ -10,8 +10,8 @@ This repository contains the functionality to standardize the data of the target
 
 ## Published dataset
 
-* [Dataset on the IPT]() (to be done)
-* [Dataset on GBIF]() (to be done)
+* [Dataset on the IPT](https://ipt.inbo.be/resource?r=dvw-target-list)
+* [Dataset on GBIF](https://doi.org/10.15468/52b8h9)
 
 ## Repo structure
 
